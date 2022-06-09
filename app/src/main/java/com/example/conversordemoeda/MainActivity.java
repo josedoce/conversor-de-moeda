@@ -1,6 +1,7 @@
 package com.example.conversordemoeda;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         et_valorReais = findViewById(R.id.et_valor_em_reais);
         bt_converter = findViewById(R.id.bt_converter);
         tv_valorDolares = findViewById(R.id.tv_valor_em_dolares);
@@ -33,9 +35,20 @@ public class MainActivity extends AppCompatActivity {
                 double valorEmDolar = c.realParaDolar(valorEmReal);
                 String[] status = {
                         "",
-                        "es"
+                        "es",
+                        "l",
+                        "is"
                 };
-                tv.setText(String.format(Locale.GERMANY, "R$ %.2f compram $ %.2f dolar%s ",valorEmReal , valorEmDolar, status[(valorEmDolar <= 1?0:1)] ));
+                tv.setText(
+                        String.format(
+                            Locale.GERMANY,
+                            "R$ %.2f rea%s compram $ %.2f dolar%s ",
+                            valorEmReal,
+                            status[(valorEmReal <= 1?2:3)],
+                            valorEmDolar,
+                            status[(valorEmDolar <= 1?0:1)]
+                        )
+                );
                 tv.setTextColor(Color.parseColor("#FF018786"));
             }catch (NumberFormatException e){
                 tv.setText("Digite apenas números.");
